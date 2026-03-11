@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-green
+  namespace: roboshop
+  labels: #these are deployment labels
+    purpose: blue-green
+    project: roboshop
+    color: green
+spec:
+  replicas: 3
+  selector:
+    matchLabels: #these labels are used to select pods
+      purpose: blue-green
+      project: roboshop
+      color: green
+  template: #pod definition
+    metadata:
+      labels:
+        purpose: blue-green
+        project: roboshop
+        color: green
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:mainline-alpine3.23-perl
+        
